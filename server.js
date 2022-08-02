@@ -12,14 +12,22 @@ io = new Server({
     }
 })
 io.on('connection', socket => {
-    console.log('issue resolved: ')
+    console.log('issue resolved: ',socket.id)
     socket.emit("first",{
         from:"server",
+    })
+    socket.on("first2",(resp)=>{
+        console.log('resp first2: ',resp)
+        socket.emit('accepted',{
+            data:"accepted"
+        })
     })
     socket.on("second",(resp)=>{
         console.log('digit: ',resp)
     })
-    socket.on('disconnect', () => { /* … */ });
+    socket.on('disconnect', () => { 
+        console.log(socket.id,' disconnected')
+     });
 });
 
 
@@ -29,4 +37,5 @@ io.on('connection', socket => {
 // server.listen(5000,()=>{
 //     console.log('WooHoo..')
 // })
-io.listen(5000)
+let PORT = 5000||process.env.port
+io.listen(PORT)
