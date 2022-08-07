@@ -50,5 +50,5 @@ io.on('connection', socket => {
 // server.listen(5000,()=>{
 //     console.log('WooHoo..')
 // })
-let PORT = 5000||process.env.port
-io.listen(PORT)
+let port = 5000||process.env.PORT
+io.listen(port)
