@@ -11,10 +11,23 @@ io = new Server({
         // methods: ["GET", "POST"]
     }
 })
+
+const driversLocation = [{id:"1",lng:67.1344,lat:24.9204}]
 io.on('connection', socket => {
     console.log('issue resolved: ',socket.id)
     socket.emit("first",{
         from:"server",
+    })
+
+    socket.on('Booker',(resp)=>{
+        console.log('Booker: ',resp)
+
+        let driver = driversLocation.find(eachDriver => resp.id == eachDriver.id)
+
+        socket.emit('driverLocation',{
+            driver
+        })
+    
     })
     socket.on("first2",(resp)=>{
         console.log('resp first2: ',resp)
@@ -30,7 +43,7 @@ io.on('connection', socket => {
      });
 });
 
-
+// 
 // let server = app.listen(5000,()=>{
 //     console.log(`WooHoo...`)
 // })
