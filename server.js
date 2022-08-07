@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors')
 
+const app = express();
+
+let port = 5000||process.env.PORT
+
+const server = app.listen(port);
 
 const {Server}= require('socket.io')
 // let app = express(), server = require('http').createServer(app), io = require('socket.io')(server);
 // app.use(cors())
-io = new Server({
+io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: '*',
         // methods: ["GET", "POST"]
     }
 })
@@ -50,5 +55,5 @@ io.on('connection', socket => {
 // server.listen(5000,()=>{
 //     console.log('WooHoo..')
 // })
-let port = 5000||process.env.PORT
-io.listen(port)
+// let port = 5000||process.env.PORT
+// io.listen(port)
